@@ -1,0 +1,14 @@
+---
+- name: create service for deployment
+  hosts: kubernetes
+  become: true
+  tasks:
+  - name: Copy file with owner and permissions           
+    copy:                                                
+      src: /opt/k8s-labs/login-app-service.yml
+      dest: /home/himanshu/ansible/login-app-service.yml
+      owner: root
+      group: root
+      mode: '0644'
+  - name: create a service
+    command: kubectl apply -f /home/himanshu/ansible/login-app-service.yml

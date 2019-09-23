@@ -1,0 +1,19 @@
+---                                                                                                                                
+- name: Create pods using deployment
+  hosts: kubernetes
+  become: true
+                                                                                               
+  tasks:
+  - name: Copy file with owner and permissions   
+    copy: 
+        src: /opt/k8s-labs/login-app-deploy.yml
+        dest: /home/himanshu/ansible/login-app-deploy.yml     
+        owner: root
+        group: root
+        mode: '0644' 
+  - name: create a deployment
+    command: kubectl apply -f /home/himanshu/ansible/login-app-deploy.yml
+                                                                                                                                   
+  - name: update deployment with new pods if image updated in docker hub
+    command: kubectl rollout restart deployment.v1.apps/login-app
+                                                                                                                                   

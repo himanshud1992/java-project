@@ -1,0 +1,5 @@
+[ansible-server]
+localhost
+
+[kubernetes]
+192.168.56.100
